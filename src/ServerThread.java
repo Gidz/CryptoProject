@@ -19,7 +19,7 @@ public class ServerThread extends Thread {
             while (true)
             {
                 Message message= (Message) tunnelIn.readObject();
-                System.out.println(message.getDetails());
+                System.out.println(message.getDetails()+"\n----------------------------");
             }
         }
         catch (IOException e) {

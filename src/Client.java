@@ -8,16 +8,20 @@ import java.util.Scanner;
  */
 public class Client {
     public static void main(String args[]) throws IOException {
-//        String name = args[0];
+        String sender,receiver;
+        Scanner input = new Scanner(System.in);
+        System.out.println("Identify yourself human ...");
+        sender = input.nextLine();
+        System.out.println("Whom are you contacting?");
+        receiver = input.nextLine();
         Socket socket = new Socket(InetAddress.getLocalHost(), 10025);
         ObjectOutputStream tunnelOut = new ObjectOutputStream(socket.getOutputStream());
         while (true) {
             try {
-                Scanner input = new Scanner(System.in);
                 String messageToSend = input.nextLine();
 
                 System.out.println("Packing and sending " + messageToSend);
-                tunnelOut.writeObject(new Message(messageToSend));
+                tunnelOut.writeObject(new Message(sender,receiver,messageToSend));
             } catch (IOException e) {
                 System.out.println("Sorry, cannot connect to the server.");
             }

@@ -1,5 +1,6 @@
 import java.io.DataInputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.net.Socket;
 
 /**
@@ -14,14 +15,16 @@ public class ServerThread extends Thread {
     public void run()
     {
         try {
-            DataInputStream tunnelIn = new DataInputStream(socket.getInputStream());
+            ObjectInputStream tunnelIn = new ObjectInputStream (socket.getInputStream());
             while (true)
             {
-                String message = tunnelIn.readUTF();
-                System.out.println(">"+message);
+                Message message= (Message) tunnelIn.readObject();
+                System.out.println(message.getDetails());
             }
         }
         catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
     }

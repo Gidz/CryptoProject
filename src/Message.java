@@ -1,7 +1,9 @@
+import java.io.Serializable;
+
 /**
  * Created by gideon on 20/04/17.
  */
-public class Message {
+public class Message implements Serializable{
     private String sender,receiver,message;
     Message(String s,String r,String m)
     {

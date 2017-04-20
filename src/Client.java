@@ -1,5 +1,4 @@
-import java.io.DataOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.util.Scanner;
@@ -11,17 +10,14 @@ public class Client {
     public static void main(String args[]) throws IOException {
 //        String name = args[0];
         Socket socket = new Socket(InetAddress.getLocalHost(), 10025);
-        DataOutputStream tunnelOut = new DataOutputStream(socket.getOutputStream());
+        ObjectOutputStream tunnelOut = new ObjectOutputStream(socket.getOutputStream());
         while (true) {
             try {
                 Scanner input = new Scanner(System.in);
                 String messageToSend = input.nextLine();
 
                 System.out.println("Packing and sending " + messageToSend);
-                tunnelOut.writeUTF(messageToSend);
-
-                //DataInputStream tunnelIn = new DataInputStream(socket.getInputStream());
-                //System.out.println(">"+tunnelIn.readUTF());
+                tunnelOut.writeObject(new Message(messageToSend));
             } catch (IOException e) {
                 System.out.println("Sorry, cannot connect to the server.");
             }

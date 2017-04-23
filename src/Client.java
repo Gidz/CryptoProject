@@ -14,6 +14,7 @@ public class Client {
         sender = input.nextLine();
         System.out.println("Whom are you contacting?");
         receiver = input.nextLine();
+        System.out.println("Please proceed with the chat. Type below.");
         Socket socket = new Socket(InetAddress.getLocalHost(), 10025);
         ObjectOutputStream tunnelOut = new ObjectOutputStream(socket.getOutputStream());
         while (true) {
